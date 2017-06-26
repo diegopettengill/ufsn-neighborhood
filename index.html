@@ -29,8 +29,12 @@
     <div class="row height-fix">
 
     <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+        
+        <div class="filter-wrapper">
+            <input type="text" id="filter" data-bind="textInput: query" autocomplete="off" class="form-control">
+        </div>
 
-        <ul class="list-group" data-bind="foreach: locations">
+        <ul class="list-group" data-bind="foreach: getLocations">
             <li class="list-group-item" data-bind="text: name"></li>
         </ul>
 

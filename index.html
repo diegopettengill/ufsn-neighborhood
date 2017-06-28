@@ -28,22 +28,76 @@
 
     <div class="row height-fix">
 
-    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-        
-        <div class="filter-wrapper">
-            <input type="text" id="filter" data-bind="textInput: query" autocomplete="off" class="form-control">
+        <nav class="navbar navbar-default visible-xs visible-sm" role="navigation">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">Home</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse navbar-ex1-collapse">
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="#">Link</a></li>
+                    <li><a href="#">Link</a></li>
+                </ul>
+                <form class="navbar-form navbar-left" role="search">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search">
+                    </div>
+                    <button type="submit" class="btn btn-default">Submit</button>
+                </form>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="#">Link</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#">Action</a></li>
+                            <li><a href="#">Another action</a></li>
+                            <li><a href="#">Something else here</a></li>
+                            <li><a href="#">Separated link</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div><!-- /.navbar-collapse -->
+        </nav>
+
+        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 height-fix no-padding">
+
+            <div class="filter-wrapper">
+                <input type="text" id="filter" placeholder="Filter by name" data-bind="textInput: query"
+                       autocomplete="off" class="form-control">
+            </div>
+
+            <div class="list-wrapper">
+
+                <ul class="coworking-list list-unstyled" data-bind="foreach: getLocations">
+                    <li data-bind="click: $parent.selectCoworking">
+                        <h1 data-bind="text: name"></h1>
+                        <p>
+                            <!--<span data-bind="text: categories[0].name"></span>-->
+                            <span data-bind="text: location.formattedAddress[0]"></span> -
+                            <span data-bind="text: location.formattedAddress[1]"></span> -
+                            <span data-bind="text: contact.formattedPhone"></span>
+
+
+                        </p>
+                    </li>
+                </ul>
+
+            </div>
+
         </div>
 
-        <ul class="list-group" data-bind="foreach: getLocations">
-            <li class="list-group-item" data-bind="text: name"></li>
-        </ul>
-
-    </div>
-
-    <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9 height-fix no-padding">
-        <!--map-->
-        <div id="map"></div>
-    </div>
+        <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9 height-fix no-padding">
+            <!--map-->
+            <div id="map"></div>
+        </div>
 
     </div>
 

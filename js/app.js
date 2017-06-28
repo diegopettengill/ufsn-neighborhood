@@ -4,6 +4,7 @@
 
 var map;
 var markers = [];
+var openedInfo = null;
 
 // Configuration object for the project
 var config = {
@@ -31,10 +32,13 @@ var ViewModel = function () {
     var vm = this;
 
     vm.locations = ko.observableArray([]);
-
     vm.query = ko.observable("");
 
     // Init the app, fetching the coworking locations in San Francisco
+    /**
+     * Init the app, fetching cowrking places near San Francisco
+     * using the Foursquare API
+     */
     vm.init = function () {
 
         $.ajax({
@@ -49,31 +53,26 @@ var ViewModel = function () {
 
             data.response.venues.forEach(function (venue) {
 
-                vm.locations.push(venue);
-
-                var infoWindow = new google.maps.InfoWindow({
-                    content: venue.name
+                venue.infoWindow = new google.maps.InfoWindow({
+                    content: '<h4>'+venue.name+'</h4> '
                 });
 
-                var marker = new google.maps.Marker({
+                venue.marker = new google.maps.Marker({
                     position: {lat: venue.location.lat, lng: venue.location.lng},
                     animation: google.maps.Animation.DROP,
                     map: map,
                     title: venue.name
                 });
 
-                marker.addListener('click', function () {
+                venue.active = false;
 
-                    if (marker.getAnimation() !== null) {
-                        marker.setAnimation(null);
-                    } else {
-                        marker.setAnimation(google.maps.Animation.BOUNCE);
-                    }
-
-                    infoWindow.open(map, marker);
+                venue.marker.addListener('click', function () {
+                    vm.selectCoworking(venue);
                 });
 
-                markers.push(marker);
+                vm.locations.push(venue);
+
+                markers.push(venue.marker);
 
             });
 
@@ -88,30 +87,66 @@ var ViewModel = function () {
 
     };
 
-
+    /**
+     * Filter the current locations by the term typed in the search box
+     */
     vm.getLocations = ko.computed(function () {
-        
-        var texto = vm.query();
 
-        var filter = texto.toLocaleLowerCase();
+        //Our desired term
+        var term = vm.query();
 
+        //Lowercase the search term to get better results and final UX
+        var filter = term.toLocaleLowerCase();
+
+        //If no term typed, then return all the locations
         if (filter === "") {
             return vm.locations();
         } else {
+
             return ko.utils.arrayFilter(vm.locations(), function (item) {
-                return item.name.toLowerCase().indexOf(filter) !== -1;
+                if(item.name.toLowerCase().indexOf(filter) !== -1){
+                    item.marker.setMap(map);
+                    return true;
+                }else{
+                    item.marker.setMap(null);
+                    return false;
+                }
             });
         }
 
     });
 
+    /**
+     * Select a coworking place in the map
+     * @param coworking
+     */
+    vm.selectCoworking = function (coworking) {
 
-    vm.showMarker = function (location) {
+        if (coworking.marker.getAnimation() !== null) {
+            coworking.marker.setAnimation(null);
+        } else {
 
+            coworking.marker.setAnimation(google.maps.Animation.BOUNCE);
 
+            setTimeout(function(){
+                coworking.marker.setAnimation(null);
+            }, 700);
+        }
+
+        vm.closeAll();
+        coworking.infoWindow.open(map, coworking.marker);
     };
 
+    /**
+     * Close all the opened infoWindows
+     */
+    vm.closeAll = function(){
+        ko.utils.arrayForEach(vm.locations(),function(coworking){
+            coworking.infoWindow.close();
+        });
+    };
 
+    // Run the init function 1 time
     vm.init();
 
 };

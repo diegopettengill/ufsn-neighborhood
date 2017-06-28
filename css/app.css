@@ -15,3 +15,40 @@ html, body{
 #map{
     height: 100%;
 }
+
+.filter-wrapper{
+    background: #FF5722;
+    padding:10px 5px;
+    box-shadow: 0 0 5px rgba(0,0,0,0.5);
+}
+
+.filter-wrapper input[type="text"]{
+    border:none;
+}
+
+.coworking-list li{
+    border-bottom:1px solid #f2f2f2;
+    padding:10px 20px;
+}
+
+.coworking-list li:hover, .coworking-list li.active{
+    cursor:pointer;
+    background: #FFCCBC;
+}
+
+.coworking-list li h1{
+    margin: 0;
+    padding: 0;
+    font-size:15px;
+    font-weight: 600;
+}
+
+.coworking-list li p{
+    color:#8c8c8c;
+    font-size: 13px;
+}
+
+.list-wrapper{
+    height: calc(100% - 55px);
+    overflow-y:scroll;
+}

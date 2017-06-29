@@ -34,7 +34,6 @@ var ViewModel = function () {
     vm.locations = ko.observableArray([]);
     vm.query = ko.observable("");
 
-    // Init the app, fetching the coworking locations in San Francisco
     /**
      * Init the app, fetching cowrking places near San Francisco
      * using the Foursquare API
@@ -64,10 +63,8 @@ var ViewModel = function () {
                     title: venue.name
                 });
 
-                venue.active = false;
-
                 venue.marker.addListener('click', function () {
-                    vm.selectCoworking(venue);
+                    vm.showInfo(venue);
                 });
 
                 vm.locations.push(venue);
@@ -133,6 +130,28 @@ var ViewModel = function () {
             }, 700);
         }
 
+        vm.toggleNavbar();
+        vm.closeAll();
+        coworking.infoWindow.open(map, coworking.marker);
+    };
+
+    /**
+     * Show info windows on marker cliok
+     * @param coworking
+     */
+    vm.showInfo = function (coworking) {
+
+        if (coworking.marker.getAnimation() !== null) {
+            coworking.marker.setAnimation(null);
+        } else {
+
+            coworking.marker.setAnimation(google.maps.Animation.BOUNCE);
+
+            setTimeout(function(){
+                coworking.marker.setAnimation(null);
+            }, 700);
+        }
+
         vm.closeAll();
         coworking.infoWindow.open(map, coworking.marker);
     };
@@ -146,6 +165,10 @@ var ViewModel = function () {
         });
     };
 
+    vm.toggleNavbar = function() {
+        $("#list-coworking").toggleClass('hidden-xs hidden-sm');
+    };
+
     // Run the init function 1 time
     vm.init();
 
@@ -153,16 +176,3 @@ var ViewModel = function () {
 
 var app = new ViewModel();
 ko.applyBindings(app);
-
-
-// $(document).ready(function(){
-//
-//     $("#filter").keyup(function(){
-//
-//         var filterString = $(this).val();
-//
-//         app.getLocations(filterString);
-//
-//     });
-//
-// });

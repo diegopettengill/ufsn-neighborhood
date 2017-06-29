@@ -1,54 +1,147 @@
-html, body{
+html, body {
     margin: 0;
     padding: 0;
     height: 100%;
+    -webkit-font-smoothing: antialiased;
 }
 
-.no-padding{
-    padding:0;
+.no-padding {
+    padding: 0;
 }
 
-.height-fix{
+.height-fix {
     height: 100%;
 }
 
-#map{
+#map {
     height: 100%;
 }
 
-.filter-wrapper{
+.filter-wrapper {
     background: #FF5722;
-    padding:10px 5px;
-    box-shadow: 0 0 5px rgba(0,0,0,0.5);
+    padding: 10px 5px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
 }
 
-.filter-wrapper input[type="text"]{
-    border:none;
+.filter-wrapper input[type="text"] {
+    border: none;
 }
 
-.coworking-list li{
-    border-bottom:1px solid #f2f2f2;
-    padding:10px 20px;
+.coworking-list li {
+    border-bottom: 1px solid #f2f2f2;
+    padding: 10px 20px;
 }
 
-.coworking-list li:hover, .coworking-list li.active{
-    cursor:pointer;
+.coworking-list li:hover, .coworking-list li.active {
+    cursor: pointer;
     background: #FFCCBC;
 }
 
-.coworking-list li h1{
+.coworking-list li h1 {
     margin: 0;
     padding: 0;
-    font-size:15px;
+    font-size: 15px;
     font-weight: 600;
 }
 
-.coworking-list li p{
-    color:#8c8c8c;
+.coworking-list li p {
+    color: #8c8c8c;
     font-size: 13px;
 }
 
-.list-wrapper{
+.list-wrapper {
     height: calc(100% - 55px);
-    overflow-y:scroll;
+    overflow-y: scroll;
+}
+
+#btn-mobile-menu{
+    position: absolute;
+    top: 10px;
+    left:10px;
+    z-index:99;
+    background: #fff;
+    height: 50px;
+    width: 50px;
+    border:none;
+    box-shadow:0 0 5px rgba(0,0,0,0.3);
+    -webkit-border-radius:3px;
+    -moz-border-radius:3px;
+    border-radius:3px;
+    font-size:20px;
+}
+
+/** RESPONSIVE **/
+
+/* Smartphones (portrait and landscape) ----------- */
+@media only screen and (min-device-width: 320px) and (max-device-width: 480px) {
+
+    .filter-wrapper{
+        background: transparent;
+        box-shadow:none;
+    }
+
+    .filter-wrapper input{
+        height: 50px;
+        margin-top: -10px;
+        padding-left: 62px;
+    }
+
+    .map-wrapper {
+        position: relative;
+    }
+
+    #list-coworking{
+        position: absolute;
+        top:0;
+        left: 0;
+        width: 100%;
+        z-index:99;
+        padding: 10px;
+    }
+
+    .list-wrapper{
+        background: #fff;
+    }
+
+}
+
+/* Smartphones (landscape) ----------- */
+@media only screen and (min-width: 321px) {
+    /* Styles */
+}
+
+/* Smartphones (portrait) ----------- */
+@media only screen and (max-width: 320px) {
+    /* Styles */
+}
+
+/* iPads (portrait and landscape) ----------- */
+@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) {
+    /* Styles */
+}
+
+/* iPads (landscape) ----------- */
+@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (orientation: landscape) {
+    /* Styles */
+}
+
+/* iPads (portrait) ----------- */
+@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (orientation: portrait) {
+    /* Styles */
+}
+
+/**********
+iPad 3
+**********/
+@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (orientation: landscape) and (-webkit-min-device-pixel-ratio: 2) {
+    /* Styles */
+}
+
+@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (orientation: portrait) and (-webkit-min-device-pixel-ratio: 2) {
+    /* Styles */
+}
+
+/* Desktops and laptops ----------- */
+@media only screen  and (min-width: 1224px) {
+    /* Styles */
 }

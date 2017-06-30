@@ -9,7 +9,6 @@ Udacity project for the Full Stack Web Developer Nanodegree
   * Go to [Foursquare Developers](https://developer.foursquare.com/) and set up you Keys
   * Open ``js/app.js`` and change the config object to your foursquare keys
   * Open index.html
-* You can see the Live version [here](https://diegopettengill.github.io/ufsn-neighborhood/).
 
 ## What you shoud expect from this projet:
 * Google map loaded from Maps API.

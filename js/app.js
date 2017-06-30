@@ -26,6 +26,30 @@ window.initMap = function () {
     });
 };
 
+var infoWindowTemplate = function (coworking) {
+
+    var infoHtml = '<h5>' + coworking.name + '</h5>';
+
+    if (coworking.contact.hasOwnProperty('formattedPhone')) {
+        infoHtml += '<p class="info-phone">';
+        infoHtml += '<i class="glyphicon glyphicon-earphone"></i> ';
+        infoHtml += '<a href="tel:'+coworking.contact.formattedPhone+'" title="Call Now!">'+coworking.contact.formattedPhone+'</a>';
+        infoHtml += '</p>';
+    }
+
+    infoHtml += '<p class="info-address">';
+    infoHtml += '<i class="glyphicon glyphicon-pushpin"></i> ' + coworking.location.formattedAddress[0]+'<br>';
+    infoHtml += coworking.location.formattedAddress[1]+'<br>';
+    infoHtml += '</p>';
+
+    if (coworking.hasOwnProperty('twitter')) {
+        infoHtml += '<p class="info-twitter">' + coworking.contact.twitter + '</p>';
+    }
+
+    return infoHtml;
+
+};
+
 
 var ViewModel = function () {
 
@@ -52,15 +76,28 @@ var ViewModel = function () {
 
             data.response.venues.forEach(function (venue) {
 
+                $.ajax({
+                    url: config.foursquare.endpoint +venue.id+'/photos' + "?" + config.foursquare.params,
+                    data: {
+                        limit:1
+                    },
+                    dataType: 'json'
+                }).done(function (data) {
+                    console.log(data);
+                });
+
+                var infoTemplate = infoWindowTemplate(venue);
+
                 venue.infoWindow = new google.maps.InfoWindow({
-                    content: '<h4>'+venue.name+'</h4> '
+                    content: infoTemplate
                 });
 
                 venue.marker = new google.maps.Marker({
                     position: {lat: venue.location.lat, lng: venue.location.lng},
                     animation: google.maps.Animation.DROP,
                     map: map,
-                    title: venue.name
+                    title: venue.name,
+                    icon: 'img/marker.png'
                 });
 
                 venue.marker.addListener('click', function () {
@@ -78,7 +115,7 @@ var ViewModel = function () {
         }).fail(function (err) {
 
             //@TODO Add other type of message
-            alert(err);
+            alert("Oops! An error ocurred while trying to fetch the awesome Coworking places near San Francisco :(");
 
         });
 
@@ -94,17 +131,22 @@ var ViewModel = function () {
 
         //Lowercase the search term to get better results and final UX
         var filter = term.toLocaleLowerCase();
-
+        
         //If no term typed, then return all the locations
         if (filter === "") {
-            return vm.locations();
-        } else {
 
+            ko.utils.arrayForEach(vm.locations(), function (item) {
+                item.marker.setMap(map);
+            });
+
+            return vm.locations();
+
+        } else {
             return ko.utils.arrayFilter(vm.locations(), function (item) {
-                if(item.name.toLowerCase().indexOf(filter) !== -1){
+                if (item.name.toLowerCase().indexOf(filter) !== -1) {
                     item.marker.setMap(map);
                     return true;
-                }else{
+                } else {
                     item.marker.setMap(null);
                     return false;
                 }
@@ -125,7 +167,7 @@ var ViewModel = function () {
 
             coworking.marker.setAnimation(google.maps.Animation.BOUNCE);
 
-            setTimeout(function(){
+            setTimeout(function () {
                 coworking.marker.setAnimation(null);
             }, 700);
         }
@@ -147,7 +189,7 @@ var ViewModel = function () {
 
             coworking.marker.setAnimation(google.maps.Animation.BOUNCE);
 
-            setTimeout(function(){
+            setTimeout(function () {
                 coworking.marker.setAnimation(null);
             }, 700);
         }
@@ -159,13 +201,13 @@ var ViewModel = function () {
     /**
      * Close all the opened infoWindows
      */
-    vm.closeAll = function(){
-        ko.utils.arrayForEach(vm.locations(),function(coworking){
+    vm.closeAll = function () {
+        ko.utils.arrayForEach(vm.locations(), function (coworking) {
             coworking.infoWindow.close();
         });
     };
 
-    vm.toggleNavbar = function() {
+    vm.toggleNavbar = function () {
         $("#list-coworking").toggleClass('hidden-xs hidden-sm');
     };
 

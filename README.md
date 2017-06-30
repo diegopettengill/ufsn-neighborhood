@@ -1,24 +1,26 @@
-# ufsn-neighborhood
+# Udacity Neighborhood Google Maps
 
-Udacity project with knockout JS framework and google maps API.
+Udacity project for the Full Stack Web Developer Nanodegree
 
-## Setup:
-* Clone or [download](https://github.com/cardvark/neighborhood-map-udacity/archive/master.zip) the repo.
+## How to setup:
+* Clone or [download](https://github.com/diegopettengill/ufsn-neighborhood/archive/master.zip) the repo.
   * Extract files.
+  * Install dependencies using bower ``bower install``
+  * Go to [Foursquare Developers] (https://developer.foursquare.com/) and set up you Keys
+  * Open ``js/app.js`` and change the config object to your foursquare keys
   * Open index.html
-* Alternative: Live version [here](https://cardvark.github.io/neighborhood-map-udacity/).
+* You can see the Live version [here](https://diegopettengill.github.io/ufsn-neighborhood/).
 
-## Expected Functionality:
+## What you shoud expect from this projet:
 * Google map loaded from Maps API.
-* Map markers located at Points of Interest (Restaurants)
-* Points of interest data loaded via Foursquare API (image, links, geo location data).
-* API errors are handled with warning message at top of page
-* Points of Interest markers all present upon page load
-* Points of Interest markers can be filtered via a Dropdown filter menu (Neighborhoods)
-* Page is responsive.  Navbar is hidden and toggleable with hamburger when viewing on mobile (screens smaller than 768px width).
+* Fetch locations near desired lat and lng from Foursquare
+* Map markers located at Points of Interest
+* Locations data loaded via Foursquare API (Address, Phone,  geo location data).
+* API errors are handled with a simple alert
+* Locations markers can be filtered via a input filter
+* Page is responsive.
 * Page is built using Knockout JS
 
 ## Attributions:
 * [Google Maps API](https://developers.google.com/maps/)
 * [Foursquare API](https://developer.foursquare.com/)
-* [Bootsnipp](http://bootsnipp.com/snippets/featured/admin-side-menu) for responsive navbar.

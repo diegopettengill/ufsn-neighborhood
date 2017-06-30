@@ -17,6 +17,27 @@ html, body {
     height: 100%;
 }
 
+.logo{
+    top:10px;
+    right:10px;
+    position: absolute;
+    z-index:90;
+}
+.logo img{
+    width: 90px;
+}
+
+.poweredby{
+    position: absolute;
+    z-index:90;
+    bottom: 0;
+    left:70px;
+}
+
+.poweredby img{
+    width: 170px;
+}
+
 .filter-wrapper {
     background: #FF5722;
     padding: 10px 5px;

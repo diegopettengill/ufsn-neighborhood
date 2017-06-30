@@ -74,17 +74,8 @@ var ViewModel = function () {
             dataType: 'json'
         }).done(function (data) {
 
+            // iterate over the return data
             data.response.venues.forEach(function (venue) {
-
-                $.ajax({
-                    url: config.foursquare.endpoint +venue.id+'/photos' + "?" + config.foursquare.params,
-                    data: {
-                        limit:1
-                    },
-                    dataType: 'json'
-                }).done(function (data) {
-                    console.log(data);
-                });
 
                 var infoTemplate = infoWindowTemplate(venue);
 

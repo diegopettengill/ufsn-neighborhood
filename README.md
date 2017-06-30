@@ -6,7 +6,7 @@ Udacity project for the Full Stack Web Developer Nanodegree
 * Clone or [download](https://github.com/diegopettengill/ufsn-neighborhood/archive/master.zip) the repo.
   * Extract files.
   * Install dependencies using bower ``bower install``
-  * Go to [Foursquare Developers] (https://developer.foursquare.com/) and set up you Keys
+  * Go to [Foursquare Developers](https://developer.foursquare.com/) and set up you Keys
   * Open ``js/app.js`` and change the config object to your foursquare keys
   * Open index.html
 * You can see the Live version [here](https://diegopettengill.github.io/ufsn-neighborhood/).

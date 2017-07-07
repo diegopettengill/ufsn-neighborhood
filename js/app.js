@@ -26,6 +26,10 @@ window.initMap = function () {
     });
 };
 
+window.googleError = function(){
+    alert("An error while loading Google Maps ocurred, please try to reload the page.");
+};
+
 var infoWindowTemplate = function (coworking) {
 
     var infoHtml = '<h5>' + coworking.name + '</h5>';
